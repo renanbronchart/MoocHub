@@ -23,6 +23,8 @@ class CoursePage extends Component {
           <h1>Courses</h1>
         </header>
         <main>
+          {this.props.currentUser && this.props.currentUser.emails[0].address}
+          {Roles.userIsInRole(this.props.currentUser._id, 'admin') ? <p>Yes Admin</p> : <p>No admin</p>}
           <ul>
             {this.renderCourses()}
           </ul>
@@ -36,8 +38,10 @@ class CoursePage extends Component {
 
 export default withTracker(() => {
   Meteor.subscribe('course.all');
+  const currentUser = Meteor.user() || false;
 
   return {
     allCourses: Course.find({}).fetch(),
+    currentUser: currentUser
   };
 })(CoursePage);
