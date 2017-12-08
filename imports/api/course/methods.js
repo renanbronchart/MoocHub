@@ -6,7 +6,8 @@ import { Course } from './course.js';
 
 Meteor.methods({
   'course.insert'(values, ownerId) {
-    const {title, description, content, owner = 1} = values;
+    const {title, description, content} = values;
+    const ownerUsername = Meteor.users.find({ _id: ownerId}).fetch()[0].emails[0].address;
 
     check(title, String);
     check(description, String);
@@ -18,6 +19,7 @@ Meteor.methods({
       description,
       content,
       owner: ownerId,
+      ownerUsername,
       createdAt: new Date(),
     });
   },

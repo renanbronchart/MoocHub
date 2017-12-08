@@ -16,13 +16,18 @@ class CoursePage extends Component {
   }
 
   renderCourses () {
-    return this.props.allCourses.map((element) => (
-      <li key={element._id}>
-        <h3>{element.title}</h3>
-        <h5>{element.description}</h5>
-        <p>{element.content}</p>
-      </li>
-    ));
+    if (this.props.currentUser) {
+      return this.props.allCourses.map((element) => (
+        <li key={element._id}>
+          <h3><strong>Titre : </strong>{element.title}</h3>
+          <h5><strong>description : </strong>{element.description}</h5>
+          <p><strong>contenu : </strong>{element.content}</p>
+          <p><strong>Professeur : </strong>{element.ownerUsername}</p>
+        </li>
+      ));
+    } else {
+      return <p>We must you connect</p>
+    }
   }
 
   handleSubmitCourse (values) {
@@ -40,7 +45,7 @@ class CoursePage extends Component {
         </header>
         <main>
           {user && user.emails[0].address}
-          {user && isAdmin ? <p>Yes Admin</p> : <p>No admin</p>}
+          {user && isAdmin ? <p>Professeur</p> : <p>Éleve</p>}
           <ul>
             {this.renderCourses()}
           </ul>
@@ -58,5 +63,6 @@ export default withTracker(() => {
 
   return {
     allCourses: Course.find({}).fetch(),
+    currentUser: Meteor.user()
   };
 })(CoursePage);
