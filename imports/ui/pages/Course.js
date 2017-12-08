@@ -9,6 +9,12 @@ import {WrappedFormCourse} from '../components/FormCourse.js';
 
 // App component - represents the whole app
 class CoursePage extends Component {
+  constructor (props) {
+    super(props);
+
+    this.handleSubmitCourse = this.handleSubmitCourse.bind(this);
+  }
+
   renderCourses () {
     return this.props.allCourses.map((element) => (
       <li key={element._id}>
@@ -17,6 +23,10 @@ class CoursePage extends Component {
         <p>{element.content}</p>
       </li>
     ));
+  }
+
+  handleSubmitCourse (values) {
+    console.log(values, '**************');
   }
 
   render() {
@@ -32,7 +42,7 @@ class CoursePage extends Component {
             {this.renderCourses()}
           </ul>
         </main>
-        <WrappedFormCourse />
+        <WrappedFormCourse onSubmit={this.handleSubmitCourse}/>
       </div>
     );
   }

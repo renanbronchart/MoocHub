@@ -11,6 +11,10 @@ function hasErrors(fieldsError) {
 }
 
 class FormCourse extends Component {
+  constructor (props) {
+    super(props);
+  }
+
   componentDidMount() {
     // To disabled submit button at the beginning.
     this.props.form.validateFields();
@@ -18,12 +22,15 @@ class FormCourse extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const { onSubmit } = this.props;
+
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        onSubmit(values);
       }
     });
   }
+
   render() {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
@@ -65,7 +72,7 @@ class FormCourse extends Component {
           {getFieldDecorator('content', {
             rules: [{ required: true, message: 'Inscrivez un titre!' }],
           })(
-            <TextArea rows={4} placeholder='Mettez le contenu de votre cours Ici'/>
+            <TextArea rows={8} placeholder='Mettez le contenu de votre cours Ici'/>
           )}
         </FormItem>
 
