@@ -1,0 +1,24 @@
+.image {
+  max-width: 100%;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.image--round {
+  border-radius: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  &.image--roundXs {
+    max-width: 60px;
+    min-width: 60px;
+    height: 60px;
+  }
+
+  &.image--roundSm {
+    max-width: 80px;
+    min-width: 80px;
+    height: 80px;
+  }
+}

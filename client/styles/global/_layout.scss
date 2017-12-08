@@ -1,0 +1,11 @@
+body {
+  background-color: lighten($gray-white, 5);
+  color: $gray-base;
+  &.body--noScroll {
+    overflow: hidden;
+  }
+}
+
+.container {
+  max-width: $max-width-container;
+}
