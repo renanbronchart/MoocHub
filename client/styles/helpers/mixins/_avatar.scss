@@ -1,0 +1,25 @@
+@mixin avatar($size, $border-size, $space) {
+  width: $size;
+  height: $size;
+  display: inline-block;
+  border: $border-size solid transparent;
+  border-radius: $size;
+  background: none;
+  padding: 0;
+  margin: 0;
+  .avatar__round {
+    width: $size - $border-size * 2;
+    height: $size - $border-size * 2;
+    border: $space solid transparent;
+    border-radius: $size - $border-size * 2;
+    background: none;
+    overflow: hidden;
+    position: relative;
+    .avatar__img {
+      width: 100%;
+      min-width: 100%;
+      min-height: 100%;
+      vertical-align: top;
+    }
+  }
+}

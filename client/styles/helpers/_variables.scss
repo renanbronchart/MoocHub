@@ -1,0 +1,48 @@
+////////////
+// colors //
+////////////
+$blue-primary: #4891f5;
+$gray-white: #fbfbfb;
+$gray-light: #c6cbd4;
+$gray-base: #333333;
+
+////////////
+// fonts  //
+////////////
+$font-family-base: 'Lato', sans-serif;
+$font-family-title: $font-family-base;
+
+/////////////////
+// fonts-size  //
+/////////////////
+$font-size-icon: 3.5rem;
+
+///////////////////
+// Break points  //
+///////////////////
+$screen-sm-min: 850px;
+$screen-md-min: 1024px;
+$screen-lg-min: 1281px;
+
+///////////////////
+//    Images     //
+///////////////////
+// $directory-image: 'https://s3.eu-west-2.amazonaws.com/';
+
+///////////////////
+// border-radius //
+///////////////////
+$border-radius-xs: 2px;
+$border-radius-base: 4px;
+
+///////////////////
+//   z-index     //
+///////////////////
+// $z-index-tapbar: 50;
+
+///////////////////
+//  Grid-layout  //
+///////////////////
+$max-width-container: $screen-lg-min;
+$number-columns: 12;
+$percentPerColumn : 100/$number-columns;
