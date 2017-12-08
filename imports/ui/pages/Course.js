@@ -26,25 +26,26 @@ class CoursePage extends Component {
   }
 
   handleSubmitCourse (values) {
-    console.log(values);
-
-    Meteor.call('course.insert', values);
+    Meteor.call('course.insert', values, Meteor.userId());
   }
 
   render() {
+    const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
+    const user = Meteor.user()
+
     return (
       <div className="container">
         <header>
           <h1>Courses</h1>
         </header>
         <main>
-          {this.props.currentUser && this.props.currentUser.emails[0].address}
-          {this.props.currentUser && Roles.userIsInRole(this.props.currentUser._id, 'admin') ? <p>Yes Admin</p> : <p>No admin</p>}
+          {user && user.emails[0].address}
+          {user && isAdmin ? <p>Yes Admin</p> : <p>No admin</p>}
           <ul>
             {this.renderCourses()}
           </ul>
         </main>
-        <WrappedFormCourse onSubmit={this.handleSubmitCourse}/>
+        {user && isAdmin ? <WrappedFormCourse onSubmit={this.handleSubmitCourse}/> : ''}
       </div>
     );
   }
@@ -54,10 +55,8 @@ class CoursePage extends Component {
 
 export default withTracker(() => {
   Meteor.subscribe('course.all');
-  const currentUser = Meteor.user() || false;
 
   return {
     allCourses: Course.find({}).fetch(),
-    currentUser: currentUser
   };
 })(CoursePage);
