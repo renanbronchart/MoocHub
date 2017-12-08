@@ -6,7 +6,8 @@ import {Meteor} from 'meteor/meteor';
 
 // route components
 import App from '../../ui/App.js';
-import CoursePage from '../../ui/pages/Course.js';
+import CoursePage from '../../ui/pages/CoursePage.js';
+import CourseList from '../../ui/pages/CourseList.js';
 
 // navigation Component
 import { Navigation } from '../../ui/components/Navigation';
@@ -19,8 +20,8 @@ export const renderRoutes = () => (
       <Navigation />
       <Switch>
         <Route exact path="/" component={App}/>
-        <PrivateRoute path="/courses" component={CoursePage}/>
-        // <Route path="/courses" component={CoursePage}/>
+        <PrivateRoute path="/courses" component={CourseList}/>
+        <Route path="/course/:user" component={CoursePage}/>
         <Route component={App}/>
       </Switch>
     </div>
