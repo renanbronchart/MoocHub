@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {Meteor} from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
@@ -8,7 +9,7 @@ import { Course } from '../../api/course/course.js';
 import {WrappedFormCourse} from '../components/FormCourse.js';
 
 // App component - represents the whole app
-class CoursePage extends Component {
+class CourseList extends Component {
   constructor (props) {
     super(props);
 
@@ -23,6 +24,7 @@ class CoursePage extends Component {
           <h5><strong>description : </strong>{element.description}</h5>
           <p><strong>contenu : </strong>{element.content}</p>
           <p><strong>Professeur : </strong>{element.ownerUsername}</p>
+          <Link to={`/course/${element._id}`}>Aller voir le cours</Link>
         </li>
       ));
     } else {
@@ -65,4 +67,4 @@ export default withTracker(() => {
     allCourses: Course.find({}).fetch(),
     currentUser: Meteor.user()
   };
-})(CoursePage);
+})(CourseList);
