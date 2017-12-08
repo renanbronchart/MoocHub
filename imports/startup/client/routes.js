@@ -1,6 +1,8 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
+
+import {Meteor} from 'meteor/meteor';
 
 // route components
 import App from '../../ui/App.js';
@@ -17,9 +19,23 @@ export const renderRoutes = () => (
       <Navigation />
       <Switch>
         <Route exact path="/" component={App}/>
-        <Route path="/courses" component={CoursePage}/>
+        <PrivateRoute path="/courses" component={CoursePage}/>
+        // <Route path="/courses" component={CoursePage}/>
         <Route component={App}/>
       </Switch>
     </div>
   </Router>
 );
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    Meteor.user() ? (
+      <Component {...props}/>
+    ) : (
+      <Redirect to={{
+        pathname: '/',
+        state: { from: props.location }
+      }}/>
+    )
+  )}/>
+)
