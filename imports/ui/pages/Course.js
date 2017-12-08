@@ -4,6 +4,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { Course } from '../../api/course/course.js';
 
+
+import {WrappedFormCourse} from '../components/FormCourse.js';
+
 // App component - represents the whole app
 class CoursePage extends Component {
   renderCourses () {
@@ -24,11 +27,12 @@ class CoursePage extends Component {
         </header>
         <main>
           {this.props.currentUser && this.props.currentUser.emails[0].address}
-          {Roles.userIsInRole(this.props.currentUser._id, 'admin') ? <p>Yes Admin</p> : <p>No admin</p>}
+          {this.props.currentUser && Roles.userIsInRole(this.props.currentUser._id, 'admin') ? <p>Yes Admin</p> : <p>No admin</p>}
           <ul>
             {this.renderCourses()}
           </ul>
         </main>
+        <WrappedFormCourse />
       </div>
     );
   }
