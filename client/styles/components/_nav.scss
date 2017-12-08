@@ -14,3 +14,26 @@ a.navigation__link {
   color: white;
   padding: 10px 20px;
 }
+
+.navigation__header {
+  padding: 20px 0;
+  span {
+    display: inline-block;
+  }
+}
+
+.navigation__link {
+  padding: 25px;
+}
+
+.navigation__letter {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin-right: 10px;
+  color: $gray-base;
+  background-color: white;
+  border-radius: 100%;
+  padding: 0;
+}
