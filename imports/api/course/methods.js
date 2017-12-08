@@ -5,17 +5,21 @@ import { check } from 'meteor/check';
 import { Course } from './course.js';
 
 Meteor.methods({
-  'course.insert'(title, description, content, owner) {
+  'course.insert'(values, ownerId) {
+    const {title, description, content} = values;
+    const ownerUsername = Meteor.users.find({ _id: ownerId}).fetch()[0].emails[0].address;
+
     check(title, String);
     check(description, String);
     check(content, String);
-    check(owner, Number);
+    check(ownerId, String);
 
-    return Links.insert({
+    Course.insert({
       title,
       description,
       content,
-      owner,
+      owner: ownerId,
+      ownerUsername,
       createdAt: new Date(),
     });
   },
