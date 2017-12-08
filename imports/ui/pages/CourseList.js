@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {Meteor} from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
@@ -23,6 +24,7 @@ class CourseList extends Component {
           <h5><strong>description : </strong>{element.description}</h5>
           <p><strong>contenu : </strong>{element.content}</p>
           <p><strong>Professeur : </strong>{element.ownerUsername}</p>
+          <Link to={`/course/${element._id}`}>Aller voir le cours</Link>
         </li>
       ));
     } else {

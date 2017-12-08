@@ -21,7 +21,7 @@ export const renderRoutes = () => (
       <Switch>
         <Route exact path="/" component={App}/>
         <PrivateRoute path="/courses" component={CourseList}/>
-        <Route path="/course/:user" component={CoursePage}/>
+        <Route path="/course/:course" component={CoursePage}/>
         <Route component={App}/>
       </Switch>
     </div>

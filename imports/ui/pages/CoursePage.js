@@ -5,17 +5,37 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Course } from '../../api/course/course.js';
 
 // App component - represents the whole app
-const CoursePage = ({match}) => (
-  <div>
-    <h1>Page course</h1>
-    <p>{match.params.user}</p>
-  </div>
-)
+class CoursePage extends Component {
+  constructor (props) {
+    super(props);
+
+  }
+
+  render () {
+    const courseView = this.props.courseView;
+
+    return (
+      <div>
+        {
+          courseView &&
+          <div>
+            <h1>{courseView.title}</h1>
+            <p>{courseView.description}</p>
+          </div>
+        }
+      </div>
+    )
+  }
+}
 
 
+export default withTracker(({match}) => {
+  Meteor.subscribe('course.getOne', match.params.course);
 
-export default withTracker(() => {
+  const idCourse = match.params.course;
+  const courseView = (Course.find(idCourse).fetch())[0];
 
   return {
+    courseView,
   };
 })(CoursePage);
