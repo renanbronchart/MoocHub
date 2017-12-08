@@ -35,17 +35,17 @@ class FormCourse extends Component {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
     // Only show error after a field is touched.
-    const titleNameError = isFieldTouched('titleName') && getFieldError('titleName');
+    const titleError = isFieldTouched('title') && getFieldError('title');
     const descriptionError = isFieldTouched('description') && getFieldError('description');
     const contentError = isFieldTouched('content') && getFieldError('content');
     return (
       <Form className="login-form" onSubmit={this.handleSubmit}>
         <FormItem
-          validateStatus={titleNameError ? 'error' : ''}
-          help={titleNameError || ''}
+          validateStatus={titleError ? 'error' : ''}
+          help={titleError || ''}
           label="Titre du cours"
         >
-          {getFieldDecorator('titleName', {
+          {getFieldDecorator('title', {
             rules: [{ required: true, message: 'Inscrivez un titre!' }],
           })(
             <Input placeholder="React & Redux" />

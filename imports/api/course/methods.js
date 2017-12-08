@@ -5,13 +5,15 @@ import { check } from 'meteor/check';
 import { Course } from './course.js';
 
 Meteor.methods({
-  'course.insert'(title, description, content, owner) {
+  'course.insert'(values) {
+    const {title, description, content, owner = 1} = values;
+
     check(title, String);
     check(description, String);
     check(content, String);
     check(owner, Number);
 
-    return Links.insert({
+    Course.insert({
       title,
       description,
       content,

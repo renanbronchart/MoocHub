@@ -26,7 +26,9 @@ class CoursePage extends Component {
   }
 
   handleSubmitCourse (values) {
-    console.log(values, '**************');
+    console.log(values);
+
+    Meteor.call('course.insert', values);
   }
 
   render() {
