@@ -4,26 +4,21 @@ import { Menu, Icon } from 'antd';
 
 export const Navigation = () => (
   <Menu
-    defaultSelectedKeys={['1']}
+    defaultSelectedKeys={['2']}
     mode="inline"
     theme="dark"
-    className='navigation'
   >
-    <div class="navigation__header">
-      <Link to="/" className='navigation__link'>
+    <Menu.Item key='1' className='navigation__logo'>
+      <div className="navigation__header">
         <span className='navigation__letter'>M</span>
         <span className='navigation__title'>Mooc-Hub</span>
-      </Link>
-    </div>
-    <Menu.Item key="1">
+      </div>
+    </Menu.Item>
+    <Menu.Item key="2" className='navigation__item'>
       <Link to="/">Accueil</Link>
     </Menu.Item>
-    <Menu.Item key="2">
+    <Menu.Item key="3" className='navigation__item'>
       <Link to="/courses">Liste des cours</Link>
-    </Menu.Item>
-    <Menu.Item key="3">
-      <Icon type="inbox" />
-      <span>Option 3</span>
     </Menu.Item>
   </Menu>
 )

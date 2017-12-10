@@ -16,7 +16,7 @@ class CoursePage extends Component {
     const {courseView} = this.props;
 
     return (
-      <div>
+      <ContainerPage>
         {
           courseView &&
           <div>
@@ -24,7 +24,7 @@ class CoursePage extends Component {
             <p>{courseView.description}</p>
           </div>
         }
-      </div>
+      </ContainerPage>
     )
   }
 }

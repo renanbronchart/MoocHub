@@ -9,6 +9,7 @@ import { Course } from '../../api/course/course.js';
 
 
 import {WrappedFormCourse} from '../components/FormCourse.js';
+import {ContainerPage} from '../components/ContainerPage.js'
 
 // App component - represents the whole app
 class CourseList extends Component {
@@ -71,7 +72,7 @@ class CourseList extends Component {
     const user = Meteor.user();
 
     return (
-      <div className="container">
+      <ContainerPage>
         <header>
           <h1>Courses</h1>
         </header>
@@ -84,7 +85,7 @@ class CourseList extends Component {
           {user && isAdmin ? <Checkbox onChange={this.toggleViewMyCourse}>Voir mes cours</Checkbox> : ''}
         </main>
         {user && isAdmin ? <WrappedFormCourse onSubmit={this.handleSubmitCourse}/> : ''}
-      </div>
+      </ContainerPage>
     );
   }
 }
