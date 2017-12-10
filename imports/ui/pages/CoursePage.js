@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Meteor} from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import {ContainerPage} from '../components/ContainerPage';
 
 // import Course collection
 import { Course } from '../../api/course/course.js';

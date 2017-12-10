@@ -5,9 +5,18 @@
   }
 }
 
-.ant-menu-item {
+.ant-menu .ant-menu-item {
   &.navigation__logo {
     height: auto;
     line-height: normal;
+  }
+}
+
+.ant-layout-sider {
+  &.navigation {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    overflow: auto;
   }
 }
