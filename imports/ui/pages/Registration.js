@@ -3,10 +3,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 // import component to login and sign up
-import AccountsUIWrapper from './components/AccountsUiWrapper.js';
+import AccountsUIWrapper from '../components/AccountsUiWrapper.js';
 
 // App component - represents the whole app
-class App extends Component {
+class Registration extends Component {
   render() {
     return (
       <div className="container--fluid">
@@ -26,4 +26,4 @@ export default withTracker(() => {
   return {
     currentUser: Meteor.user()
   };
-})(App);
+})(Registration);

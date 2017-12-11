@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Icon } from 'antd';
 
+import { Logout } from './Logout.js';
+
 export const Navigation = () => (
   <Menu
     defaultSelectedKeys={['2']}
@@ -17,5 +19,12 @@ export const Navigation = () => (
     <Menu.Item key="2" className='navigation__item'>
       <Link to="/courses">Liste des cours</Link>
     </Menu.Item>
+    {
+      Meteor.user ?
+      <Menu.Item key="3" className='navigation__item'>
+        <Logout />
+      </Menu.Item> :
+      ''
+    }
   </Menu>
 )

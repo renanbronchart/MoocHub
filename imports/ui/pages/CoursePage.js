@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Meteor} from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import {ContainerPage} from '../components/ContainerPage';
+import {Redirect} from 'react-router-dom';
 
 // import Course collection
 import { Course } from '../../api/course/course.js';
@@ -14,7 +15,11 @@ class CoursePage extends Component {
   }
 
   render () {
-    const {courseView} = this.props;
+    const {courseView, currentUser} = this.props;
+
+    if (!currentUser) {
+      return <Redirect to='/login' />
+    }
 
     return (
       <ContainerPage>
@@ -36,8 +41,10 @@ export default withTracker(({match}) => {
 
   const idCourse = match.params.course;
   const courseView = (Course.find(idCourse).fetch())[0];
+  const currentUser = Meteor.userId();
 
   return {
     courseView,
+    currentUser
   };
 })(CoursePage);

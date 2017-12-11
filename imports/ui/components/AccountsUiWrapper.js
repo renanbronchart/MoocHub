@@ -18,7 +18,6 @@ export default class AccountsUIWrapper extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.signUp = this.signUp.bind(this);
     this.signIn = this.signIn.bind(this);
-    this.logout = this.logout.bind(this);
     this.changeView = this.changeView.bind(this);
   }
 
@@ -60,20 +59,10 @@ export default class AccountsUIWrapper extends Component {
     })
   }
 
-  logout (e) {
-    e.preventDefault();
-
-    Meteor.logout();
-
-    this.setState({
-      registration: false
-    })
-  }
-
   render() {
     const {registration, redirectToReferrer} = this.state;
     const { from } = { from: { pathname: '/courses' } }
-    const currentUser = Meteor.user();
+    const currentUser = Meteor.userId();
     const labelSubmit = registration ? 'S\'inscrire' : 'Se connecter';
 
     if (redirectToReferrer) {
@@ -87,9 +76,9 @@ export default class AccountsUIWrapper extends Component {
         <div className='row'>
           <div className='col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3'>
             {
-              currentUser ?
-              <p><a href="#" className="logout" onClick={this.logout}>Logout</a></p> :
-              <FormSign changeView={this.changeView} registration={registration} onSubmit={this.handleSubmit}/>
+              !currentUser ?
+              <FormSign changeView={this.changeView} registration={registration} onSubmit={this.handleSubmit}/> :
+              <Redirect to='/' />
             }
           </div>
         </div>

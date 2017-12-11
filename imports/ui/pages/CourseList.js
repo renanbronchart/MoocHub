@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {Meteor} from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+
 
 import { Checkbox } from 'antd';
 
@@ -71,6 +72,10 @@ class CourseList extends Component {
     const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
     const user = Meteor.user();
 
+    if (!this.props.currentUser) {
+      return <Redirect to='/login' />
+    }
+
     return (
       <ContainerPage>
         <header>
@@ -97,6 +102,6 @@ export default withTracker(() => {
 
   return {
     allCourses: Course.find({}).fetch(),
-    currentUser: Meteor.user()
+    currentUser: Meteor.userId()
   };
 })(CourseList);
