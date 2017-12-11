@@ -3,18 +3,21 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import {Redirect} from 'react-router-dom';
 
+import {ContainerPage} from '../components/ContainerPage';
+
 // App component - represents the whole app
 class App extends Component {
   render() {
+    const currentUser = this.props.currentUser;
+
+    if (!currentUser) {
+      return <Redirect to='/login' />
+    }
+
     return (
-      <div className="container--fluid">
-        {
-          this.props.currentUser ?
-          <h1>Home</h1>
-          :
-          <Redirect to='/login' />
-        }
-      </div>
+      <ContainerPage>
+        <h1>Home</h1>
+      </ContainerPage>
     );
   }
 }

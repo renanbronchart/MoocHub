@@ -25,11 +25,13 @@ class NormalLoginForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { errorForm } = this.props;
     const labelSubmit = this.props.registration ? 'S\'inscrire' : 'Se connecter';
     const labelChangeView = this.props.registration ? 'Se connecter' : 'S\'inscrire';
 
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
+        {errorForm.length ? <p className='has-error'><span className='ant-form-explain'>{errorForm}</span></p> : ''}
         <FormItem>
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Ton email est obligatoire !' }],
@@ -48,7 +50,7 @@ class NormalLoginForm extends Component {
           <Button type="primary" htmlType="submit" className="login-form-button">
             {labelSubmit}
           </Button>
-          Ou <a href="" onClick={this.props.changeView}>{labelChangeView}</a>
+          <span> Ou </span> <a href="" onClick={this.props.changeView}>{labelChangeView}</a>
         </FormItem>
       </Form>
     );
