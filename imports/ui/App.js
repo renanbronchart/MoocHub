@@ -10,11 +10,12 @@ class App extends Component {
   render() {
     return (
       <div className="container--fluid">
-        <AccountsUIWrapper />
         <header>
           <h1>Mooc Hub</h1>
         </header>
-        <main></main>
+        <main>
+          <AccountsUIWrapper />
+        </main>
       </div>
     );
   }

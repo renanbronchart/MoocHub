@@ -15,9 +15,6 @@ export const Navigation = () => (
       </div>
     </Menu.Item>
     <Menu.Item key="2" className='navigation__item'>
-      <Link to="/">Accueil</Link>
-    </Menu.Item>
-    <Menu.Item key="3" className='navigation__item'>
       <Link to="/courses">Liste des cours</Link>
     </Menu.Item>
   </Menu>

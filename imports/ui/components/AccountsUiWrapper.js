@@ -83,12 +83,16 @@ export default class AccountsUIWrapper extends Component {
     }
 
     return (
-      <div>
-        {
-          currentUser ?
-          <p><a href="#" className="logout" onClick={this.logout}>Logout</a></p> :
-          <FormSign changeView={this.changeView} registration={registration} onSubmit={this.handleSubmit}/>
-        }
+      <div className='container--fluid'>
+        <div className='row'>
+          <div className='col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3'>
+            {
+              currentUser ?
+              <p><a href="#" className="logout" onClick={this.logout}>Logout</a></p> :
+              <FormSign changeView={this.changeView} registration={registration} onSubmit={this.handleSubmit}/>
+            }
+          </div>
+        </div>
       </div>
     )
   }
