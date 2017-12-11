@@ -4,6 +4,8 @@ import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import {Redirect} from 'react-router-dom';
 
+import {FormSign} from './FormSign.js';
+
 export default class AccountsUIWrapper extends Component {
   constructor (props) {
     super(props);
@@ -17,36 +19,32 @@ export default class AccountsUIWrapper extends Component {
     this.signUp = this.signUp.bind(this);
     this.signIn = this.signIn.bind(this);
     this.logout = this.logout.bind(this);
+    this.changeView = this.changeView.bind(this);
   }
 
-  handleSubmit (e) {
-    e.preventDefault();
-
-    const {email, password} = e.target;
+  handleSubmit (values) {
+    const {email, password} = values;
     const {registration} = this.state;
 
-    const emailValue = email.value;
-    const passwordValue = password.value;
-
-    registration ? this.signUp(emailValue, passwordValue) : this.signIn(emailValue, passwordValue);
+    registration ? this.signUp(email, password) : this.signIn(email, password);
   }
 
-  signIn (emailValue, passwordValue) {
-    Meteor.loginWithPassword(emailValue, passwordValue, (err) => {
+  signIn (email, password) {
+    Meteor.loginWithPassword(email, password, (err) => {
       if (!err) {
         this.setState({
           redirectToReferrer: true
         })
       } else {
-
+        console.log('erreur de mot de passe ou de login');
       }
     });
   }
 
-  signUp (emailValue, passwordValue) {
+  signUp (email, password) {
     Accounts.createUser({
-      email: emailValue,
-      password: passwordValue
+      email,
+      password
     });
 
     this.setState({
@@ -54,10 +52,22 @@ export default class AccountsUIWrapper extends Component {
     })
   }
 
+  changeView (e) {
+    e.preventDefault();
+
+    this.setState({
+      registration: !this.state.registration
+    })
+  }
+
   logout (e) {
     e.preventDefault();
 
     Meteor.logout();
+
+    this.setState({
+      registration: false
+    })
   }
 
   render() {
@@ -75,14 +85,9 @@ export default class AccountsUIWrapper extends Component {
     return (
       <div>
         {
-          // registration ?
           currentUser ?
           <p><a href="#" className="logout" onClick={this.logout}>Logout</a></p> :
-          <form onSubmit={this.handleSubmit}>
-            <input type="email" name="email" />
-            <input type="password" name="password" />
-            <input type="submit" value={labelSubmit} />
-          </form>
+          <FormSign changeView={this.changeView} registration={registration} onSubmit={this.handleSubmit}/>
         }
       </div>
     )

@@ -15,7 +15,7 @@ export const renderRoutes = () => (
   <Router history={browserHistory}>
     <Switch>
       <Route exact path="/" component={App}/>
-      <Route path="/courses" component={CourseList}/>
+      <PrivateRoute path="/courses" component={CourseList}/>
       <Route path="/course/:course" component={CoursePage}/>
       <Route component={App}/>
     </Switch>
