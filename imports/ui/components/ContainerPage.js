@@ -12,7 +12,7 @@ export const ContainerPage = ({children, titlePage}) =>
   <Layout>
     <Header className='header'>{titlePage}</Header>
     <Layout className='layout__page'>
-      <Content>
+      <Content className='container--fluid'>
         {children}
       </Content>
     </Layout>
