@@ -23,4 +23,36 @@ Meteor.methods({
       createdAt: new Date(),
     });
   },
+
+  'course.remove'(id) {
+    check(id, String);
+
+    Course.remove({
+      '_id': id
+    })
+  },
+
+  'course.update'(id, values) {
+    const {title, description, content} = values;
+
+    check(title, String);
+    check(description, String);
+    check(content, String);
+    check(id, String);
+
+    Course.updateOne({
+      _id: id
+    },
+    {
+      $set: {
+        title,
+        description,
+        content,
+      },
+      $currentDate: {
+        lastModified: true
+      }
+    }
+    )
+  },
 });

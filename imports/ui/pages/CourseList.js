@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {Meteor} from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+
 
 import { Checkbox } from 'antd';
 
@@ -9,6 +10,7 @@ import { Course } from '../../api/course/course.js';
 
 
 import {WrappedFormCourse} from '../components/FormCourse.js';
+import {ContainerPage} from '../components/ContainerPage.js'
 
 // App component - represents the whole app
 class CourseList extends Component {
@@ -22,13 +24,14 @@ class CourseList extends Component {
 
     this.handleSubmitCourse = this.handleSubmitCourse.bind(this);
     this.toggleViewMyCourse = this.toggleViewMyCourse.bind(this);
+    this.handleDeleteCourse = this.handleDeleteCourse.bind(this);
   }
 
   renderCourses () {
     if (this.props.currentUser) {
       if (this.state.viewMyCourse) {
         let coursesFilterd = this.props.allCourses.filter((course) => {
-          return course.owner == this.props.currentUser._id
+          return course.owner == this.props.currentUser
         });
 
         return coursesFilterd.map((element) => (
@@ -38,6 +41,7 @@ class CourseList extends Component {
             <p><strong>contenu : </strong>{element.content}</p>
             <p><strong>Professeur : </strong>{element.ownerUsername}</p>
             <Link to={`/course/${element._id}`}>Aller voir le cours</Link>
+            <button onClick={() => this.handleDeleteCourse(element._id)}>Remove</button>
           </li>
         ))
       } else {
@@ -48,6 +52,7 @@ class CourseList extends Component {
             <p><strong>contenu : </strong>{element.content}</p>
             <p><strong>Professeur : </strong>{element.ownerUsername}</p>
             <Link to={`/course/${element._id}`}>Aller voir le cours</Link>
+            <button onClick={() => this.handleDeleteCourse(element._id)}>Remove</button>
           </li>
         ));
       }
@@ -62,6 +67,10 @@ class CourseList extends Component {
     })
   }
 
+  handleDeleteCourse (id) {
+    Meteor.call('course.remove', id);
+  }
+
   handleSubmitCourse (values) {
     Meteor.call('course.insert', values, Meteor.userId());
   }
@@ -70,8 +79,12 @@ class CourseList extends Component {
     const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
     const user = Meteor.user();
 
+    if (!this.props.currentUser) {
+      return <Redirect to='/login' />
+    }
+
     return (
-      <div className="container">
+      <ContainerPage>
         <header>
           <h1>Courses</h1>
         </header>
@@ -84,7 +97,7 @@ class CourseList extends Component {
           {user && isAdmin ? <Checkbox onChange={this.toggleViewMyCourse}>Voir mes cours</Checkbox> : ''}
         </main>
         {user && isAdmin ? <WrappedFormCourse onSubmit={this.handleSubmitCourse}/> : ''}
-      </div>
+      </ContainerPage>
     );
   }
 }
@@ -96,6 +109,6 @@ export default withTracker(() => {
 
   return {
     allCourses: Course.find({}).fetch(),
-    currentUser: Meteor.user()
+    currentUser: Meteor.userId()
   };
 })(CourseList);

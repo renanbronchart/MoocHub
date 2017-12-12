@@ -1,0 +1,22 @@
+.ant-layout {
+  &.layout__page {
+    min-height: calc(100vh - 80px);
+    margin: 80px 0 0 200px;
+  }
+}
+
+.ant-menu .ant-menu-item {
+  &.navigation__logo {
+    height: auto;
+    line-height: normal;
+  }
+}
+
+.ant-layout-sider {
+  &.navigation {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    overflow: auto;
+  }
+}

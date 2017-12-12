@@ -1,9 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Menu, Icon } from 'antd';
+
+import { Logout } from './Logout.js';
 
 export const Navigation = () => (
-  <ul>
-    <li><Link to="/">Home</Link></li>
-    <li><Link to="/courses">Courses</Link></li>
-  </ul>
+  <Menu
+    mode="inline"
+    theme="dark"
+    defaultSelectedKeys={['1']}
+  >
+    <Menu.Item key='1' className='navigation__logo'>
+      <div className="navigation__header">
+        <Link to="/">
+          <span className='navigation__letter'>M</span>
+          <span className='navigation__title text--white'>Mooc-Hub</span>
+        </Link>
+      </div>
+    </Menu.Item>
+    {
+      Meteor.userId() ?
+      <Menu.Item key="2" className='navigation__item'>
+        <Link to="/courses">Liste des cours</Link>
+      </Menu.Item> : ''
+    }
+    {
+      Meteor.userId() ?
+      <Menu.Item key="3" className='navigation__item'>
+        <Logout />
+      </Menu.Item> :
+      ''
+    }
+  </Menu>
 )
