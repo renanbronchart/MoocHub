@@ -24,13 +24,14 @@ class CourseList extends Component {
 
     this.handleSubmitCourse = this.handleSubmitCourse.bind(this);
     this.toggleViewMyCourse = this.toggleViewMyCourse.bind(this);
+    this.handleDeleteCourse = this.handleDeleteCourse.bind(this);
   }
 
   renderCourses () {
     if (this.props.currentUser) {
       if (this.state.viewMyCourse) {
         let coursesFilterd = this.props.allCourses.filter((course) => {
-          return course.owner == this.props.currentUser._id
+          return course.owner == this.props.currentUser
         });
 
         return coursesFilterd.map((element) => (
@@ -40,6 +41,7 @@ class CourseList extends Component {
             <p><strong>contenu : </strong>{element.content}</p>
             <p><strong>Professeur : </strong>{element.ownerUsername}</p>
             <Link to={`/course/${element._id}`}>Aller voir le cours</Link>
+            <button onClick={() => this.handleDeleteCourse(element._id)}>Remove</button>
           </li>
         ))
       } else {
@@ -50,6 +52,7 @@ class CourseList extends Component {
             <p><strong>contenu : </strong>{element.content}</p>
             <p><strong>Professeur : </strong>{element.ownerUsername}</p>
             <Link to={`/course/${element._id}`}>Aller voir le cours</Link>
+            <button onClick={() => this.handleDeleteCourse(element._id)}>Remove</button>
           </li>
         ));
       }
@@ -62,6 +65,10 @@ class CourseList extends Component {
     this.setState({
       viewMyCourse: !this.state.viewMyCourse
     })
+  }
+
+  handleDeleteCourse (id) {
+    Meteor.call('course.remove', id);
   }
 
   handleSubmitCourse (values) {

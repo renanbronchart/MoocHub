@@ -27,9 +27,9 @@ Meteor.methods({
   'course.remove'(id) {
     check(id, String);
 
-    Course.deleteOne({
-      "_id" : id
-    });
+    Course.remove({
+      '_id': id
+    })
   },
 
   'course.update'(id, values) {
