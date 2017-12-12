@@ -7,11 +7,12 @@ import {Redirect} from 'react-router-dom';
 // import Course collection
 import { Course } from '../../api/course/course.js';
 
+import {WrappedFormCourse} from '../components/FormCourse.js';
+
 // App component - represents the whole app
 class CoursePage extends Component {
   constructor (props) {
     super(props);
-
   }
 
   render () {

@@ -27,9 +27,16 @@ export const Navigation = () => (
     {
       Meteor.userId() ?
       <Menu.Item key="3" className='navigation__item'>
+        <Link to="/courses/add">Ajouter un cours</Link>
+      </Menu.Item>
+      : ''
+    }
+    {
+      Meteor.userId() ?
+      <Menu.Item key="4" className='navigation__item'>
         <Logout />
-      </Menu.Item> :
-      ''
+      </Menu.Item>
+      : ''
     }
   </Menu>
 )

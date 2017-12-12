@@ -13,6 +13,7 @@ import Registration from '../../ui/pages/Registration.js';
 import Home from '../../ui/pages/Home.js';
 import CoursePage from '../../ui/pages/CoursePage.js';
 import CourseList from '../../ui/pages/CourseList.js';
+import CourseAdd from '../../ui/pages/CourseAdd.js';
 
 const browserHistory = createBrowserHistory();
 const { Header, Footer, Sider, Content } = Layout;
@@ -25,6 +26,7 @@ export const renderRoutes = () => (
         <Route exact path="/login" component={Registration}/>
         <Route exact path="/" component={Home}/>
         <Route exact path="/courses" component={CourseList}/>
+        <Route exact path="/courses/add" component={CourseAdd}/>
         <Route exact path="/course/:course" component={CoursePage}/>
         <Route component={Home}/>
       </Switch>
