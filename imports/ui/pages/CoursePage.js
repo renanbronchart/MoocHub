@@ -67,7 +67,7 @@ class CoursePage extends Component {
                 <p>{courseView.content}</p>
               </div>
             }
-            {currentUser && isAdmin ? <Checkbox onChange={this.toggleViewMode}>Mode edition</Checkbox> : ''}
+            {courseView.owner === currentUser ? <Checkbox onChange={this.toggleViewMode}>Mode edition</Checkbox> : ''}
           </div>
         }
       </ContainerPage>
@@ -86,6 +86,6 @@ export default withTracker(({match}) => {
   return {
     courseView,
     currentUser,
-    idCourse
+    idCourse,
   };
 })(CoursePage);
