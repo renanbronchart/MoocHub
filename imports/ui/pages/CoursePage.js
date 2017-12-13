@@ -17,25 +17,39 @@ class CoursePage extends Component {
     super(props);
 
     this.state = {
-      updateMode: false
+      updateMode: false,
+      courseSubmit: false,
     }
 
     this.toggleViewMode = this.toggleViewMode.bind(this);
+    this.handleSubmitCourse = this.handleSubmitCourse.bind(this);
   }
 
   toggleViewMode (e) {
     this.setState({
-      updateMode: true
+      updateMode: !this.state.updateMode
+    })
+  }
+
+  handleSubmitCourse (values) {
+    Meteor.call('course.update', this.props.idCourse, values);
+
+    this.setState({
+      courseSubmit: true
     })
   }
 
   render () {
     const {courseView, currentUser} = this.props;
     const isAdmin = Roles.userIsInRole(currentUser, 'admin');
-    const {updateMode} = this.state;
+    const {updateMode, courseSubmit} = this.state;
 
     if (!currentUser) {
       return <Redirect to='/login' />
+    }
+
+    if (courseSubmit) {
+      return <Redirect to='/courses' />
     }
 
     return (
@@ -45,7 +59,7 @@ class CoursePage extends Component {
           <div>
             {
               updateMode ?
-              <FormUpdate />
+              <FormUpdate data={courseView} onSubmit={this.handleSubmitCourse}/>
               :
               <div>
                 <h1>{courseView.title}</h1>
@@ -71,6 +85,7 @@ export default withTracker(({match}) => {
 
   return {
     courseView,
-    currentUser
+    currentUser,
+    idCourse
   };
 })(CoursePage);

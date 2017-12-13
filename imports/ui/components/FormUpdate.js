@@ -31,10 +31,6 @@ const CustomizedForm = Form.create({
     };
   },
 
-  onValuesChange(_, values) {
-    console.log(values);
-  }
-
 })((props) => {
   const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = props.form;
 
@@ -43,8 +39,18 @@ const CustomizedForm = Form.create({
   const descriptionError = isFieldTouched('description') && getFieldError('description');
   const contentError = isFieldTouched('content') && getFieldError('content');
 
-  return (
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { onSubmit } = props;
 
+    props.form.validateFields((err, values) => {
+      if (!err) {
+        onSubmit(values);
+      }
+    });
+  }
+
+  return (
     <Form className="login-form" onSubmit={this.handleSubmit}>
       <FormItem
         validateStatus={titleError ? 'error' : ''}
@@ -76,7 +82,7 @@ const CustomizedForm = Form.create({
         label="contenu du cours"
       >
         {getFieldDecorator('content', {
-          rules: [{ required: true, message: 'Inscrivez un titre!' }],
+          rules: [{ required: true, message: 'Et un contenu quand même!' }],
         })(
           <TextArea rows={8} placeholder='Mettez le contenu de votre cours Ici'/>
         )}
@@ -88,7 +94,7 @@ const CustomizedForm = Form.create({
           htmlType="submit"
           disabled={hasErrors(getFieldsError())}
         >
-          Créer mon cours
+          Modifier mon cours
         </Button>
       </FormItem>
     </Form>
@@ -96,29 +102,38 @@ const CustomizedForm = Form.create({
 });
 
 export class FormUpdate extends Component {
-  state = {
-    fields: {
-      title: {
-        value: 'benjycui',
+  constructor (props) {
+    super(props);
+
+    const { data } = props;
+
+    this.state = {
+      fields: {
+        title: {
+          value: data.title,
+        },
+        description: {
+          value: data.description,
+        },
+        content: {
+          value: data.content,
+        },
       },
-      description: {
-        value: 'benjycui',
-      },
-      content: {
-        value: 'benjycui',
-      },
-    },
-  };
+    }
+  }
+
   handleFormChange = (changedFields) => {
     this.setState({
       fields: { ...this.state.fields, ...changedFields },
     });
   }
+
   render() {
     const fields = this.state.fields;
+
     return (
       <div>
-        <CustomizedForm {...fields} onChange={this.handleFormChange} />
+        <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={this.props.onSubmit}/>
       </div>
     );
   }
