@@ -40,7 +40,7 @@ Meteor.methods({
     check(content, String);
     check(id, String);
 
-    Course.updateOne({
+    Course.update({
       _id: id
     },
     {
