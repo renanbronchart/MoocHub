@@ -11,7 +11,9 @@ import { Course } from '../../api/course/course.js';
 
 import {WrappedFormCourse} from '../components/FormCourse.js';
 import { CourseElement } from '../components/CourseElement.js';
-import {ContainerPage} from '../components/ContainerPage.js'
+import {ContainerPage} from '../components/ContainerPage.js';
+
+import TableList from '../components/TableList.js';
 
 // App component - represents the whole app
 class CourseList extends Component {
@@ -43,14 +45,15 @@ class CourseList extends Component {
           />
         ))
       } else {
-        return this.props.allCourses.map((element) => (
-          <CourseElement
-            elem={element}
-            key={element._id}
-            user={this.props.user}
-            onClick={() => this.handleDeleteCourse(element._id)}
-          />
-        ));
+        return <TableList allCourses={this.props.allCourses}/>
+        // return this.props.allCourses.map((element) => (
+        //   <CourseElement
+        //     elem={element}
+        //     key={element._id}
+        //     user={this.props.user}
+        //     onClick={() => this.handleDeleteCourse(element._id)}
+        //   />
+        // ));
       }
     } else {
       return <p>We must you connect</p>
