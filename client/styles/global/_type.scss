@@ -85,6 +85,13 @@ a, a:visited {
   color: $gray-base;
   font-family: $font-family-base;
   font-weight: 700;
+  &.text--primary {
+    color: #1890ff;
+  }
+
+  &.text--danger {
+    color: red;
+  }
   &:hover,
   &:active {
     // color: darken($gray-base, 20);
@@ -112,7 +119,7 @@ a, a:visited {
 }
 
 .text--primary {
-  color: blue
+  color: #1890ff
 }
 
 .text--danger {

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Menu, Dropdown, Icon, Divider } from 'antd';
+import { Link } from 'react-router-dom';
 
 class TableList extends Component {
   constructor (props) {
@@ -47,6 +48,8 @@ class TableList extends Component {
   }
 
   render () {
+    const { onClick } = this.props;
+
     let { sortedInfo, filteredInfo } = this.state;
     let { allCourses } = this.props;
     let courses = [];
@@ -95,6 +98,16 @@ class TableList extends Component {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+    }, {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <span>
+          <a href="#" className="text--danger" onClick={() => onClick(record.key)}>Supprimer</a>
+          <Divider type="vertical" />
+          <Link to={`/course/${record.key}`} className="text--primary">Voir le cours</Link>
+        </span>
+      ),
     }];
 
     return (

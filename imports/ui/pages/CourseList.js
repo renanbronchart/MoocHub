@@ -45,7 +45,12 @@ class CourseList extends Component {
           />
         ))
       } else {
-        return <TableList allCourses={this.props.allCourses}/>
+        return (
+          <TableList
+            allCourses={this.props.allCourses}
+            onClick={this.handleDeleteCourse}
+          />
+        )
         // return this.props.allCourses.map((element) => (
         //   <CourseElement
         //     elem={element}
