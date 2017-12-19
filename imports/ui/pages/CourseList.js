@@ -49,6 +49,7 @@ class CourseList extends Component {
           <TableList
             allCourses={this.props.allCourses}
             onClick={this.handleDeleteCourse}
+            user={this.props.user}
           />
         )
         // return this.props.allCourses.map((element) => (

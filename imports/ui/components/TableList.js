@@ -48,10 +48,8 @@ class TableList extends Component {
   }
 
   render () {
-    const { onClick } = this.props;
-
+    const { onClick, user, allCourses } = this.props;
     let { sortedInfo, filteredInfo } = this.state;
-    let { allCourses } = this.props;
     let courses = [];
     let filtersUsername = allCourses.map((elem) => {
       let filterElem = {
@@ -72,6 +70,7 @@ class TableList extends Component {
     const dataCourses = allCourses.map((elem, index) => {
       return {
         key: elem._id,
+        owner: elem.owner,
         ownerUsername: elem.ownerUsername,
         title: elem.title,
         description: elem.description,
@@ -103,8 +102,15 @@ class TableList extends Component {
       key: 'action',
       render: (text, record) => (
         <span>
-          <a href="#" className="text--danger" onClick={() => onClick(record.key)}>Supprimer</a>
-          <Divider type="vertical" />
+          {
+            user._id === record.owner ?
+            <span>
+              <a href="#" className="text--danger" onClick={() => onClick(record.key)}>Supprimer</a>
+              <Divider type="vertical" />
+            </span>
+            :
+            ''
+          }
           <Link to={`/course/${record.key}`} className="text--primary">Voir le cours</Link>
         </span>
       ),
