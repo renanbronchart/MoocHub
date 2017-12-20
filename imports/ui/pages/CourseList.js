@@ -35,14 +35,13 @@ class CourseList extends Component {
           return course.owner == this.props.currentUser
         });
 
-        return coursesFilterd.map((element) => (
-          <CourseElement
-            elem={element}
-            key={element._id}
+        return (
+          <TableList
+            allCourses={coursesFilterd}
+            onClick={this.handleDeleteCourse}
             user={this.props.user}
-            onClick={() => this.handleDeleteCourse(element._id)}
           />
-        ))
+        )
       } else {
         return (
           <TableList
