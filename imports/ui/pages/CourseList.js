@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import {Meteor} from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-
 import { Checkbox } from 'antd';
 
 import { Course } from '../../api/course/course.js';
@@ -52,14 +51,6 @@ class CourseList extends Component {
             user={this.props.user}
           />
         )
-        // return this.props.allCourses.map((element) => (
-        //   <CourseElement
-        //     elem={element}
-        //     key={element._id}
-        //     user={this.props.user}
-        //     onClick={() => this.handleDeleteCourse(element._id)}
-        //   />
-        // ));
       }
     } else {
       return <p>We must you connect</p>
@@ -85,7 +76,7 @@ class CourseList extends Component {
     }
 
     return (
-      <ContainerPage>
+      <ContainerPage isAdmin={isAdmin}>
         <header>
           <h1>Courses</h1>
         </header>

@@ -4,11 +4,11 @@ import { Menu, Icon } from 'antd';
 
 import { Logout } from './Logout.js';
 
-export const Navigation = () => (
+export const Navigation = ({isAdmin}) => (
   <Menu
     mode="inline"
     theme="dark"
-    defaultSelectedKeys={['1']}
+    selectable={false}
   >
     <Menu.Item key='1' className='navigation__logo'>
       <div className="navigation__header">
@@ -25,7 +25,7 @@ export const Navigation = () => (
       </Menu.Item> : ''
     }
     {
-      Meteor.userId() ?
+      isAdmin ?
       <Menu.Item key="3" className='navigation__item'>
         <Link to="/courses/add">Ajouter un cours</Link>
       </Menu.Item>
