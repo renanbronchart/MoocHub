@@ -53,7 +53,7 @@ class CoursePage extends Component {
     }
 
     return (
-      <ContainerPage>
+      <ContainerPage isAdmin={isAdmin}>
         {
           courseView &&
           <div>

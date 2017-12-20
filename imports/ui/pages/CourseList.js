@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import {Meteor} from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-
 import { Checkbox } from 'antd';
 
 import { Course } from '../../api/course/course.js';
@@ -11,7 +10,9 @@ import { Course } from '../../api/course/course.js';
 
 import {WrappedFormCourse} from '../components/FormCourse.js';
 import { CourseElement } from '../components/CourseElement.js';
-import {ContainerPage} from '../components/ContainerPage.js'
+import {ContainerPage} from '../components/ContainerPage.js';
+
+import TableList from '../components/TableList.js';
 
 // App component - represents the whole app
 class CourseList extends Component {
@@ -34,23 +35,21 @@ class CourseList extends Component {
           return course.owner == this.props.currentUser
         });
 
-        return coursesFilterd.map((element) => (
-          <CourseElement
-            elem={element}
-            key={element._id}
+        return (
+          <TableList
+            allCourses={coursesFilterd}
+            onClick={this.handleDeleteCourse}
             user={this.props.user}
-            onClick={() => this.handleDeleteCourse(element._id)}
           />
-        ))
+        )
       } else {
-        return this.props.allCourses.map((element) => (
-          <CourseElement
-            elem={element}
-            key={element._id}
+        return (
+          <TableList
+            allCourses={this.props.allCourses}
+            onClick={this.handleDeleteCourse}
             user={this.props.user}
-            onClick={() => this.handleDeleteCourse(element._id)}
           />
-        ));
+        )
       }
     } else {
       return <p>We must you connect</p>
@@ -76,7 +75,7 @@ class CourseList extends Component {
     }
 
     return (
-      <ContainerPage>
+      <ContainerPage isAdmin={isAdmin}>
         <header>
           <h1>Courses</h1>
         </header>

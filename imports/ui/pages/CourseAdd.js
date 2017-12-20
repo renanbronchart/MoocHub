@@ -38,7 +38,7 @@ class CourseAdd extends Component {
     }
 
     return (
-      <ContainerPage>
+      <ContainerPage isAdmin={isAdmin}>
         {
           this.state.courseSubmit ?
           <Redirect to='/courses' />

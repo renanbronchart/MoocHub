@@ -21,7 +21,6 @@ const { Header, Footer, Sider, Content } = Layout;
 export const renderRoutes = () => (
   <Router history={browserHistory}>
     <div>
-      <Sider className='navigation'><Navigation /></Sider>
       <Switch>
         <Route exact path="/login" component={Registration}/>
         <Route exact path="/" component={Home}/>
